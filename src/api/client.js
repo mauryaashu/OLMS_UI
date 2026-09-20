@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || 'https://olms-production-3dd3.up.railway.app' });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || 'https://olms-production-3dd3.up.railway.app/api' });
 api.interceptors.request.use(config => { const token = localStorage.getItem('token'); if (token) config.headers.Authorization = `Bearer ${token}`; return config; });
 api.interceptors.response.use(r => r, err => { if (err.response?.status === 401 && !location.pathname.includes('login')) { localStorage.clear(); location.reload(); } return Promise.reject(err); });
 export default api;
